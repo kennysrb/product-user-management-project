@@ -4,7 +4,6 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-// import { Box } from "@mui/system";
 import { useState } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
@@ -14,6 +13,7 @@ import Container from "@mui/material/Container";
 import MenuIcon from "../assets/images/icons/hamburger-icon.png";
 import UserIcon from "../assets/images/icons/user-icon.png";
 import { useNavigate } from "react-router-dom";
+import styles from "./Header.module.scss";
 export const Header = () => {
   const pages = ["Products", "Users", "Carts"];
   const settings = ["Logout"];
@@ -36,7 +36,7 @@ export const Header = () => {
     setAnchorElUser(null);
   };
   return (
-    <AppBar position="static">
+    <AppBar position="static" className={styles.Navbar}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -139,7 +139,7 @@ export const Header = () => {
               </IconButton>
             </Tooltip>
             <Menu
-              sx={{ mt:   "45px" }}
+              sx={{ mt: "45px" }}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{

@@ -1,0 +1,15 @@
+@import "../global.scss";
+
+.Container {
+  @include container;
+
+  .Grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1rem;
+    margin-left: 1rem;
+    @media (max-width: 768px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+}

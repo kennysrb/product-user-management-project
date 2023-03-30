@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import { Header } from "../components/Header";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../store";
-
+import SingleProduct from "../components/SingleProduct";
+import styles from "./Products.module.scss";
 export const Products = observer(() => {
   const {
     productStore: { getProducts, products },
@@ -11,15 +12,17 @@ export const Products = observer(() => {
   useEffect(() => {
     getProducts();
   }, []);
-  console.log("test");
 
   return (
     <>
       <Header />
-      <div>Products page</div>
-      {products.map((m: any) => {
-        return <p key={m.id}>{m.title}</p>;
-      })}
+      <div className={styles.Container}>
+        <div className={styles.Grid}>
+          {products.map((elem: any) => {
+            return <SingleProduct key={elem.id} {...elem} />;
+          })}
+        </div>
+      </div>
     </>
   );
 });
