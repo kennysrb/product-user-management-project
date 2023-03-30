@@ -1,5 +1,9 @@
 import { Header } from "./components/Header";
+import { Products } from "./pages/Products";
+import { Provider, initializeStore } from "./store";
+import { observer } from "mobx-react-lite";
 
+const store = initializeStore();
 function App() {
   return (
     <>
@@ -9,4 +13,4 @@ function App() {
   );
 }
 
-export default App;
+export default observer(App);

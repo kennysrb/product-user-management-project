@@ -12,6 +12,7 @@ import Tooltip from "@mui/material/Tooltip";
 import Avatar from "@mui/material/Avatar";
 import Container from "@mui/material/Container";
 import MenuIcon from "../assets/images/icons/hamburger-icon.png";
+import UserIcon from "../assets/images/icons/user-icon.png";
 import { useNavigate } from "react-router-dom";
 export const Header = () => {
   const pages = ["Products", "Users", "Carts"];
@@ -134,11 +135,11 @@ export const Header = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="N" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="N" src={UserIcon} />
               </IconButton>
             </Tooltip>
             <Menu
-              sx={{ mt: "45px" }}
+              sx={{ mt:   "45px" }}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
