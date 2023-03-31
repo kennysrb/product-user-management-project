@@ -7,12 +7,18 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import styles from "./SingleProduct.module.scss";
 import { BottomModal } from "../UI/BottomModal";
+import { useStore } from "../store";
 
 export default function SingleProduct(props: any) {
-  const { title, description, price, images } = props;
+  const { title, description, price, images, id } = props;
+  const {
+    productStore: { getSinglePRoduct },
+  } = useStore();
   const [isOpen, setOpen] = React.useState(false);
 
   const openModal = () => {
+    getSinglePRoduct(id);
+    //the above call here is unneccessary since at this point I already have all products stored, but it's just for the sake of the demo to show how to call get single product method
     setOpen(true);
   };
   return (
@@ -28,10 +34,9 @@ export default function SingleProduct(props: any) {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button onClick={openModal} size="small">
-            Share
+          <Button onClick={openModal} size="small" className={styles.Button}>
+            More details
           </Button>
-          <Button size="small">Learn More</Button>
         </CardActions>
       </Card>
       <BottomModal open={isOpen} setOpen={setOpen} {...props} />

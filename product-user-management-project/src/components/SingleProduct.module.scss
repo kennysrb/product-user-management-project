@@ -2,4 +2,12 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  .Button {
+    color: #1b263b;
+    font-weight: 500;
+    &:hover {
+      color: #778da9;
+      transform: scale(1.1);
+    }
+  }
 }

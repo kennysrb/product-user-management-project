@@ -28,10 +28,10 @@ export const ProductModel = types.model("ProductModel", {
   thumbnail: types.string,
   images: types.array(types.string),
 });
-
 const ProductStore = types
   .model({
     products: types.array(ProductModel),
+    singleProduct: types.maybeNull(ProductModel),
   })
   .views((self) => ({}))
   .actions((self) => {
@@ -39,10 +39,26 @@ const ProductStore = types
       setProducts(products: Product[]) {
         self.products = cast(products.map((p) => ProductModel.create(p)));
       },
+      setSingleProduct(product: Product) {
+        self.singleProduct = cast(product);
+      },
+      removeSingleProduct() {
+        self.singleProduct = null;
+      },
       async getProducts() {
         try {
           const response = await axios.get("https://dummyjson.com/products");
           this.setProducts(response.data.products);
+        } catch (error) {
+          console.error("Error fetching products:", error);
+        }
+      },
+      async getSinglePRoduct(id: number) {
+        try {
+          const response = await axios.get(
+            `https://dummyjson.com/products/${id}`
+          );
+          this.setSingleProduct(response.data);
         } catch (error) {
           console.error("Error fetching products:", error);
         }
