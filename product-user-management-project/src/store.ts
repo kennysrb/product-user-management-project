@@ -53,7 +53,7 @@ const ProductStore = types
           console.error("Error fetching products:", error);
         }
       },
-      async getSinglePRoduct(id: number) {
+      async getSingleProduct(id: number) {
         try {
           const response = await axios.get(
             `https://dummyjson.com/products/${id}`
@@ -61,6 +61,23 @@ const ProductStore = types
           this.setSingleProduct(response.data);
         } catch (error) {
           console.error("Error fetching products:", error);
+        }
+      },
+      async deleteProduct(id: number) {
+        try {
+          const response = await fetch(`https://dummyjson.com/products/${id}`, {
+            method: "DELETE",
+          });
+
+          if (!response.ok) {
+            throw new Error("Failed to delete product.");
+          }
+
+          const data = await response.json();
+          console.log(data);
+          console.log("Product deleted successfully!");
+        } catch (error) {
+          console.error("Error deleting product:", error);
         }
       },
     };

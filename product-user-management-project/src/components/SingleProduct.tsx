@@ -12,12 +12,12 @@ import { useStore } from "../store";
 export default function SingleProduct(props: any) {
   const { title, description, price, images, id } = props;
   const {
-    productStore: { getSinglePRoduct },
+    productStore: { getSingleProduct },
   } = useStore();
   const [isOpen, setOpen] = React.useState(false);
 
   const openModal = () => {
-    getSinglePRoduct(id);
+    getSingleProduct(id);
     //the above call here is unneccessary since at this point I already have all products stored, but it's just for the sake of the demo to show how to call get single product method
     setOpen(true);
   };

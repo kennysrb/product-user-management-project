@@ -5,7 +5,9 @@ import styles from "./BottomModal.module.scss";
 import CloseIcon from "../assets/images/icons/close-icon.png";
 import EditIcon from "../assets/images/icons/edit-icon.png";
 import ConfirmIcon from "../assets/images/icons/checkmark-icon.png";
+import DeleteIcon from "../assets/images/icons/delete-icon.png";
 import { useStore } from "../store";
+import ConfirmationDialog from "./ConfirmationDialog";
 
 export const BottomModal = observer((props: any) => {
   const { open, setOpen } = props;
@@ -13,6 +15,7 @@ export const BottomModal = observer((props: any) => {
     productStore: { singleProduct, removeSingleProduct },
   } = useStore();
   const [editMode, setEditMode] = React.useState(false);
+  const [dialogOpen, setDialogOpen] = React.useState(false);
   const onClickCloseModal = () => {
     setOpen(false);
     setEditMode(false);
@@ -23,6 +26,9 @@ export const BottomModal = observer((props: any) => {
   };
   const onClickConfirmEditProduct = () => {
     setEditMode(false);
+  };
+  const onClickDeleteProduct = () => {
+    setDialogOpen(true);
   };
 
   return (
@@ -63,19 +69,26 @@ export const BottomModal = observer((props: any) => {
                     value={singleProduct?.title}
                   />
                 )}
-                {!editMode ? (
+                <div className={styles.IconsWrapper}>
+                  {!editMode ? (
+                    <img
+                      className={styles.Edit}
+                      src={EditIcon}
+                      onClick={onClickEditProduct}
+                    />
+                  ) : (
+                    <img
+                      className={styles.Edit}
+                      src={ConfirmIcon}
+                      onClick={onClickConfirmEditProduct}
+                    />
+                  )}
                   <img
                     className={styles.Edit}
-                    src={EditIcon}
-                    onClick={onClickEditProduct}
+                    src={DeleteIcon}
+                    onClick={onClickDeleteProduct}
                   />
-                ) : (
-                  <img
-                    className={styles.Edit}
-                    src={ConfirmIcon}
-                    onClick={onClickConfirmEditProduct}
-                  />
-                )}
+                </div>
               </div>
               <p className={styles.SmallFont}>
                 Brand:{" "}
@@ -142,6 +155,11 @@ export const BottomModal = observer((props: any) => {
                 </p>
               </div>
             </div>
+            <ConfirmationDialog
+              dialogOpen={dialogOpen}
+              setDialogOpen={setDialogOpen}
+              id={singleProduct?.id}
+            />
           </Sheet.Content>
         </Sheet.Container>
 
