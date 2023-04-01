@@ -85,9 +85,14 @@ export default function FiltersBar() {
   const handleChange = (event: SelectChangeEvent<typeof productCategory>) => {
     setProductCategory(event.target.value);
   };
+
+  const openAddProductModal = () => {};
   return (
     <Box className={styles.FiltersBarWrapper} sx={{ flexGrow: 1 }}>
       <AppBar position="static" className={styles.FiltersBar}>
+        <span className={styles.Link} onClick={openAddProductModal}>
+          New product +
+        </span>
         <Search>
           <StyledInputBase
             placeholder="Search…"
