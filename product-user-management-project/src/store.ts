@@ -90,6 +90,12 @@ const ProductStore = types
           .then((data) => console.log(data))
           .catch((error) => console.error("Error:", error));
       },
+      searchProducts(search: string) {
+        axios
+          .get(`https://dummyjson.com/products/search?q=${search}`)
+          .then((res) => this.setProducts(res.data.products))
+          .catch((error) => console.error("Error:", error));
+      },
     };
   });
 
