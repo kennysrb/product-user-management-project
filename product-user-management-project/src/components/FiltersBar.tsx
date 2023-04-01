@@ -9,6 +9,7 @@ import { MenuItem } from "@mui/material";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import { Theme, useTheme } from "@mui/material/styles";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { AddProductModal } from "../modals/AddProductModal";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -53,7 +54,7 @@ export default function FiltersBar() {
     productStore: { searchProducts, productCategories, getProductByCategory },
   } = useStore();
   const [inputValue, setInputValue] = React.useState("");
-
+  const [isOpen, setOpen] = React.useState(false);
   let timeout: any;
 
   React.useEffect(() => {
@@ -79,57 +80,65 @@ export default function FiltersBar() {
 
   const theme = useTheme();
   const [productCategory, setProductCategory] = React.useState("");
+
   React.useEffect(() => {
+    if (productCategory === "") return;
     getProductByCategory(productCategory);
   }, [productCategory]);
+
   const handleChange = (event: SelectChangeEvent<typeof productCategory>) => {
     setProductCategory(event.target.value);
   };
 
-  const openAddProductModal = () => {};
+  const openAddProductModal = () => {
+    setOpen(true);
+  };
   return (
-    <Box className={styles.FiltersBarWrapper} sx={{ flexGrow: 1 }}>
-      <AppBar position="static" className={styles.FiltersBar}>
-        <span className={styles.Link} onClick={openAddProductModal}>
-          New product +
-        </span>
-        <Search>
-          <StyledInputBase
-            placeholder="Search…"
-            inputProps={{ "aria-label": "search" }}
-            onChange={handleInputChange}
-          />
-        </Search>
-        <Select
-          displayEmpty
-          value={productCategory}
-          onChange={handleChange}
-          input={<OutlinedInput />}
-          className={styles.Select}
-          renderValue={(selected) => {
-            if (selected.length === 0) {
-              return <em>Categories</em>;
-            } else {
-              return <em>{selected}</em>;
-            }
-          }}
-          MenuProps={MenuProps}
-          inputProps={{ "aria-label": "Without label" }}
-        >
-          <MenuItem disabled value="">
-            <em>Categories</em>
-          </MenuItem>
-          {productCategories.map((name) => (
-            <MenuItem
-              key={name}
-              value={name}
-              style={getStyles(name, productCategory, theme)}
-            >
-              {name}
+    <>
+      <Box className={styles.FiltersBarWrapper} sx={{ flexGrow: 1 }}>
+        <AppBar position="static" className={styles.FiltersBar}>
+          <span className={styles.Link} onClick={openAddProductModal}>
+            New product +
+          </span>
+          <Search>
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{ "aria-label": "search" }}
+              onChange={handleInputChange}
+            />
+          </Search>
+          <Select
+            displayEmpty
+            value={productCategory}
+            onChange={handleChange}
+            input={<OutlinedInput />}
+            className={styles.Select}
+            renderValue={(selected) => {
+              if (selected.length === 0) {
+                return <em>Categories</em>;
+              } else {
+                return <em>{selected}</em>;
+              }
+            }}
+            MenuProps={MenuProps}
+            inputProps={{ "aria-label": "Without label" }}
+          >
+            <MenuItem disabled value="">
+              <em>Categories</em>
             </MenuItem>
-          ))}
-        </Select>
-      </AppBar>
-    </Box>
+            {productCategories.map((name) => (
+              <MenuItem
+                key={name}
+                value={name}
+                style={getStyles(name, productCategory, theme)}
+              >
+                {name}
+              </MenuItem>
+            ))}
+          </Select>
+        </AppBar>
+      </Box>
+      <AddProductModal open={isOpen} setOpen={setOpen} />
+    </>
   );
 }

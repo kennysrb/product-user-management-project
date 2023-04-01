@@ -1,0 +1,83 @@
+.BottomModal {
+  z-index: 1002 !important;
+  width: 30%;
+  margin: 0 auto;
+  border-radius: 10px;
+  .CloseIconWrapper {
+    position: sticky;
+    top: 0px;
+    z-index: 1000;
+    width: 100%;
+    height: 40px;
+  }
+  .CloseIcon {
+    position: absolute;
+    top: 10px;
+    right: 0;
+    cursor: pointer;
+    width: 25px;
+    z-index: 1000;
+    border-radius: 10px;
+    background-color: transparent;
+  }
+  .Content {
+    .Image {
+      width: 100%;
+    }
+    .BottomContent {
+      position: relative;
+      .IconsWrapper {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        .Edit {
+          height: 25px;
+          cursor: pointer;
+          &:hover {
+            transform: scale(1.2);
+          }
+        }
+      }
+    }
+    .RatingAndPrice {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
+    .ContentContainer {
+      width: 90%;
+      margin: 0 auto;
+      .TitleEditWrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .Title {
+          font-size: 1.2rem;
+          font-weight: bold;
+        }
+      }
+      .SmallFont {
+        font-size: 0.9rem;
+      }
+      .BoldFont {
+        font-weight: bold;
+        font-size: 1rem;
+      }
+    }
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #999;
+      border-radius: 10px;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+      border-radius: 10px;
+      background: #777;
+    }
+  }
+}

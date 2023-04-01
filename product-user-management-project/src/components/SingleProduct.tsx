@@ -6,7 +6,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import styles from "./SingleProduct.module.scss";
-import { BottomModal } from "../UI/BottomModal";
+import { EditProductModal } from "../UI/EditProductModal";
 import { useStore } from "../store";
 
 export default function SingleProduct(props: any) {
@@ -39,7 +39,7 @@ export default function SingleProduct(props: any) {
           </Button>
         </CardActions>
       </Card>
-      <BottomModal open={isOpen} setOpen={setOpen} {...props} />
+      <EditProductModal open={isOpen} setOpen={setOpen} {...props} />
     </>
   );
 }

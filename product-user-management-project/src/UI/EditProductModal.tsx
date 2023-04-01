@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import Sheet from "react-modal-sheet";
 import { observer, useObserver } from "mobx-react-lite";
-import styles from "./BottomModal.module.scss";
+import styles from "./EditProductModal.module.scss";
 import CloseIcon from "../assets/images/icons/close-icon.png";
 import EditIcon from "../assets/images/icons/edit-icon.png";
 import ConfirmIcon from "../assets/images/icons/checkmark-icon.png";
@@ -10,7 +10,7 @@ import { useStore } from "../store";
 import ConfirmationDialog from "./ConfirmationDialog";
 import { Box, Button, TextField } from "@mui/material";
 
-export const BottomModal = observer((props: any) => {
+export const EditProductModal = observer((props: any) => {
   const {
     open,
     setOpen,

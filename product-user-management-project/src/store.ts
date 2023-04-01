@@ -112,6 +112,12 @@ const ProductStore = types
           .then((res) => this.setProducts(res.data.products))
           .catch((error) => console.error("Error:", error));
       },
+      createNewProduct(product: {}) {
+        axios
+          .post("https://dummyjson.com/products/add", product)
+          .then((res) => console.log(res.data))
+          .catch((error) => console.error("Error:", error));
+      },
     };
   });
 
