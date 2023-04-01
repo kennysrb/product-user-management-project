@@ -49,7 +49,6 @@ export const UserStore = types
       async getUsers() {
         try {
           const response = await axios.get("https://dummyjson.com/users");
-          console.log(response.data);
           this.setUsers(Array.from(response.data.users));
         } catch (error) {
           console.error("Error fetching users:", error);

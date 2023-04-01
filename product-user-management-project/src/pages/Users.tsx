@@ -11,12 +11,13 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { useStore } from "../store";
 import { observer } from "mobx-react-lite";
+import { UserInfoModal } from "../modals/UserInfoModal";
 
 export const Users = observer(() => {
   const {
-    userStore: { getUsers, users },
+    userStore: { getUsers, users, getSingleUser, singleUser },
   } = useStore();
-
+  const [isOpen, setOpen] = useState(false);
   useEffect(() => {
     getUsers();
   }, []);
@@ -89,6 +90,10 @@ export const Users = observer(() => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+  const selectUser = (id: any) => {
+    getSingleUser(id);
+    setOpen(true);
+  };
 
   return (
     <>
@@ -97,7 +102,10 @@ export const Users = observer(() => {
         {/* <FiltersBar /> */}
         <div>
           <Paper sx={{ width: "100%" }}>
-            <TableContainer className={styles.TableContainer} sx={{ height: "100vh" }}>
+            <TableContainer
+              className={styles.TableContainer}
+              sx={{ height: "100vh" }}
+            >
               <Table stickyHeader aria-label="sticky table">
                 <TableHead className={styles.TableHead}>
                   <TableRow>
@@ -127,6 +135,7 @@ export const Users = observer(() => {
                           role="checkbox"
                           tabIndex={-1}
                           key={row.id}
+                          onClick={() => selectUser(row.id)}
                         >
                           {Object.keys(row)
                             .filter((u) => u !== "id")
@@ -168,6 +177,7 @@ export const Users = observer(() => {
           </Paper>
         </div>
       </div>
+      <UserInfoModal open={isOpen} setOpen={setOpen} />
     </>
   );
 });

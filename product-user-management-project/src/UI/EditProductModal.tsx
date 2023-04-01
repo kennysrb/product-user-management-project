@@ -215,6 +215,7 @@ export const EditProductModal = observer((props: any) => {
               setDialogOpen={setDialogOpen}
               id={singleProduct?.id}
               setOpen={setOpen}
+              content={"product"}
             />
           </Sheet.Content>
         </Sheet.Container>

@@ -8,20 +8,28 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { useStore } from "../store";
 
 export default function ConfirmationDialog(props: any) {
-  const { dialogOpen, setDialogOpen, id, setOpen } = props;
+  const { dialogOpen, setDialogOpen, id, setOpen, content } = props;
   const {
     productStore: { deleteProduct },
+    userStore: { deleteUser },
   } = useStore();
   const handleClose = () => {
     setDialogOpen(false);
   };
-  const handleDelete = () => {
-    deleteProduct(id)
-      .then(() => {
-        setDialogOpen(false);
-        setOpen(false);
-      })
-      .catch((err) => console.log(err));
+  const handleDelete = async () => {
+    switch (content) {
+      case "product":
+        await deleteProduct(id);
+        break;
+      case "user":
+        await deleteUser(id);
+        break;
+      // case "cart":
+      //   deleteCart(id);
+      //   break;
+    }
+    setDialogOpen(false);
+    setOpen(false);
   };
 
   return (
@@ -35,7 +43,7 @@ export default function ConfirmationDialog(props: any) {
         <DialogTitle id="alert-dialog-title">{"Confirm delete"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Are you sure you want to delete selected product?
+            Are you sure you want to delete selected {content}?
           </DialogContentText>
         </DialogContent>
         <DialogActions>

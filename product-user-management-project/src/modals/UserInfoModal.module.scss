@@ -63,6 +63,7 @@
       .BoldFont {
         font-weight: bold;
         font-size: 1rem;
+        margin-left: 5px;
       }
     }
     @include scrollBar;
