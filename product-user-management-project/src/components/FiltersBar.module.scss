@@ -2,5 +2,11 @@
   margin-bottom: 1rem;
   .FiltersBar {
     background-color: #415a77;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    .Select {
+      color: #fff;
+    }
   }
 }

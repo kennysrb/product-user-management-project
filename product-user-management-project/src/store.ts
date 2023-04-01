@@ -32,6 +32,7 @@ const ProductStore = types
   .model({
     products: types.array(ProductModel),
     singleProduct: types.maybeNull(ProductModel),
+    productCategories: types.array(types.string),
   })
   .views((self) => ({}))
   .actions((self) => {
@@ -44,6 +45,9 @@ const ProductStore = types
       },
       removeSingleProduct() {
         self.singleProduct = null;
+      },
+      setProductCategories(categories: string[]) {
+        self.productCategories = cast(categories);
       },
       async getProducts() {
         try {
@@ -93,6 +97,18 @@ const ProductStore = types
       searchProducts(search: string) {
         axios
           .get(`https://dummyjson.com/products/search?q=${search}`)
+          .then((res) => this.setProducts(res.data.products))
+          .catch((error) => console.error("Error:", error));
+      },
+      getProductCategories() {
+        axios
+          .get("https://dummyjson.com/products/categories")
+          .then((res) => this.setProductCategories(res.data))
+          .catch((error) => console.error("Error:", error));
+      },
+      getProductByCategory(category: string) {
+        axios
+          .get(`https://dummyjson.com/products/category/${category}`)
           .then((res) => this.setProducts(res.data.products))
           .catch((error) => console.error("Error:", error));
       },

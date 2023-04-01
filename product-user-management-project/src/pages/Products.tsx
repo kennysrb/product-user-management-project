@@ -7,11 +7,12 @@ import styles from "./Products.module.scss";
 import FiltersBar from "../components/FiltersBar";
 export const Products = observer(() => {
   const {
-    productStore: { getProducts, products },
+    productStore: { getProducts, products, getProductCategories },
   } = useStore();
 
   useEffect(() => {
     getProducts();
+    getProductCategories();
   }, []);
 
   return (
