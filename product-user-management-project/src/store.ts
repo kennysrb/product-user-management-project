@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Instance, cast, flow, types } from "mobx-state-tree";
 import { createContext, useContext } from "react";
+import {UserStore} from "./models/User";
 
 interface Product {
   id: number;
@@ -123,6 +124,7 @@ const ProductStore = types
 
 export const RootStore = types.model({
   productStore: ProductStore,
+  userStore: UserStore,
 });
 
 let _store: any = null;
@@ -130,6 +132,7 @@ let _store: any = null;
 export function initializeStore() {
   _store = RootStore.create({
     productStore: { products: [] },
+    userStore: { users: [] },
   });
   return _store;
 }

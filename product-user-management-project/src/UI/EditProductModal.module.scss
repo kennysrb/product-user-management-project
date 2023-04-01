@@ -1,3 +1,4 @@
+@import "../global.scss";
 .BottomModal {
   z-index: 1002 !important;
   width: 30%;
@@ -64,20 +65,6 @@
         font-size: 1rem;
       }
     }
-    &::-webkit-scrollbar {
-      width: 10px;
-    }
-    &::-webkit-scrollbar-track {
-      background: #f1f1f1;
-      border-radius: 10px;
-    }
-    &::-webkit-scrollbar-thumb {
-      background: #999;
-      border-radius: 10px;
-    }
-    &::-webkit-scrollbar-thumb:hover {
-      border-radius: 10px;
-      background: #777;
-    }
+    @include scrollBar;
   }
 }

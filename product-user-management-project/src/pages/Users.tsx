@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Header } from "../components/Header";
 import styles from "./Users.module.scss";
 import Paper from "@mui/material/Paper";
@@ -9,8 +9,17 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import { useStore } from "../store";
+import { observer } from "mobx-react-lite";
 
-export const Users = () => {
+export const Users = observer(() => {
+  const {
+    userStore: { getUsers, users },
+  } = useStore();
+
+  useEffect(() => {
+    getUsers();
+  }, []);
   interface Column {
     id:
       | "image"
@@ -29,9 +38,9 @@ export const Users = () => {
   }
 
   const columns: Column[] = [
-    { id: "image", label: "", maxWidth: 20 },
-    { id: "firstName", label: "Name", minWidth: 100 },
-    { id: "lastName", label: "Last name", minWidth: 100 },
+    { id: "image", label: "", maxWidth: 20, align: "right" },
+    { id: "firstName", label: "Name", minWidth: 100, align: "right" },
+    { id: "lastName", label: "Last name", minWidth: 100, align: "right" },
     {
       id: "age",
       label: "Age",
@@ -39,6 +48,7 @@ export const Users = () => {
       align: "right",
       // format: (value: number) => value.toLocaleString("en-US"),
     },
+    { id: "gender", label: "Gender", minWidth: 100, align: "right" },
     {
       id: "email",
       label: "Email",
@@ -66,67 +76,6 @@ export const Users = () => {
     // address: ;
   }
 
-  function createData(
-    image: string,
-    firstName: string,
-    lastName: string,
-    age: number,
-    gender: string,
-    email: string,
-    phone: string
-    // address:
-  ): User {
-    return { image, firstName, lastName, age, gender, email, phone };
-  }
-
-  const rows = [
-    createData(
-      "https://robohash.org/hicveldicta.png?size=50x50&set=set1",
-      "John",
-      "Doe",
-      2,
-      "male",
-      "jdoe@gmail.com",
-      "1234567890"
-    ),
-    createData(
-      "https://robohash.org/hicveldicta.png?size=50x50&set=set1",
-      "John",
-      "Doe",
-      23,
-      "male",
-      "jdoe@gmail.com",
-      "1234567890"
-    ),
-    createData(
-      "https://robohash.org/hicveldicta.png?size=50x50&set=set1",
-      "John",
-      "Doe",
-      24,
-      "male",
-      "jdoe@gmail.com",
-      "1234567890"
-    ),
-    createData(
-      "https://robohash.org/hicveldicta.png?size=50x50&set=set1",
-      "John",
-      "Doe",
-      25,
-      "male",
-      "jdoe@gmail.com",
-      "1234567890"
-    ),
-    createData(
-      "https://robohash.org/hicveldicta.png?size=50x50&set=set1",
-      "John",
-      "Doe",
-      26,
-      "male",
-      "jdoe@gmail.com",
-      "1234567890"
-    ),
-  ];
-
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -140,31 +89,28 @@ export const Users = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
   return (
     <>
       <Header />
       <div className={styles.Container}>
         {/* <FiltersBar /> */}
         <div>
-          {/* {users.map((elem: any) => {
-            return <SingleProduct key={elem.id} {...elem} />;
-          })} */}
-
           <Paper sx={{ width: "100%" }}>
-            <TableContainer sx={{ height: "100vh" }}>
+            <TableContainer className={styles.TableContainer} sx={{ height: "100vh" }}>
               <Table stickyHeader aria-label="sticky table">
-                <TableHead>
-                  <h2>USER LIST</h2>
+                <TableHead className={styles.TableHead}>
                   <TableRow>
                     {columns.map((column) => (
                       <TableCell
                         key={column.id}
                         align={column.align}
                         style={{
-                          top: 57,
+                          top: 0,
                           minWidth: column.minWidth,
                           maxWidth: column.maxWidth,
                         }}
+                        className={styles.TableHeadCell}
                       >
                         {column.label}
                       </TableCell>
@@ -172,7 +118,7 @@ export const Users = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rows
+                  {users
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => {
                       return (
@@ -180,20 +126,30 @@ export const Users = () => {
                           hover
                           role="checkbox"
                           tabIndex={-1}
-                          key={row.age}
+                          key={row.id}
                         >
-                          {columns.map((column) => {
-                            const value = row[column.id];
-                            return (
-                              <TableCell key={column.id} align={column.align}>
-                                {column.id === "image" ? (
-                                  <img src={value} alt={value} />
+                          {Object.keys(row)
+                            .filter((u) => u !== "id")
+                            .map((key) => (
+                              <TableCell
+                                key={key}
+                                align="right"
+                                style={{
+                                  minWidth: columns[key]?.minWidth,
+                                  maxWidth: columns[key]?.maxWidth,
+                                }}
+                              >
+                                {key === "image" ? (
+                                  <img
+                                    className={styles.AvatarImg}
+                                    src={row[key]}
+                                    alt={row[key]}
+                                  />
                                 ) : (
-                                  value
+                                  row[key]
                                 )}
                               </TableCell>
-                            );
-                          })}
+                            ))}
                         </TableRow>
                       );
                     })}
@@ -203,7 +159,7 @@ export const Users = () => {
             <TablePagination
               rowsPerPageOptions={[10, 25, 100]}
               component="div"
-              count={rows.length}
+              count={users.length}
               rowsPerPage={rowsPerPage}
               page={page}
               onPageChange={handleChangePage}
@@ -214,4 +170,4 @@ export const Users = () => {
       </div>
     </>
   );
-};
+});

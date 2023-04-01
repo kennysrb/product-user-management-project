@@ -2,4 +2,18 @@
 
 .Container {
   @include container;
+
+  padding-bottom: 0;
+  .TableContainer {
+    @include scrollBar;
+    .TableHead {
+      width: 100%;
+      .TableHeadCell {
+        background-color: #e0e1dd;
+      }
+    }
+    .AvatarImg {
+      height: 30px;
+    }
+  }
 }
