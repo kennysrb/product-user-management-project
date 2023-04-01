@@ -80,6 +80,16 @@ const ProductStore = types
           console.error("Error deleting product:", error);
         }
       },
+      updateProduct(id: any, product: any) {
+        fetch(`https://dummyjson.com/products/${id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(product),
+        })
+          .then((res) => res.json())
+          .then((data) => console.log(data))
+          .catch((error) => console.error("Error:", error));
+      },
     };
   });
 

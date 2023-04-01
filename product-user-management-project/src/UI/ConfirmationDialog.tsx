@@ -8,7 +8,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { useStore } from "../store";
 
 export default function ConfirmationDialog(props: any) {
-  const { dialogOpen, setDialogOpen, id } = props;
+  const { dialogOpen, setDialogOpen, id, setOpen } = props;
   const {
     productStore: { deleteProduct },
   } = useStore();
@@ -16,8 +16,12 @@ export default function ConfirmationDialog(props: any) {
     setDialogOpen(false);
   };
   const handleDelete = () => {
-    deleteProduct(id);
-    setDialogOpen(false);
+    deleteProduct(id)
+      .then(() => {
+        setDialogOpen(false);
+        setOpen(false);
+      })
+      .catch((err) => console.log(err));
   };
 
   return (

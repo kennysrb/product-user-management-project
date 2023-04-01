@@ -24,6 +24,26 @@
     .Image {
       width: 100%;
     }
+    .BottomContent {
+      position: relative;
+      .IconsWrapper {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        .Edit {
+          height: 25px;
+          cursor: pointer;
+          &:hover {
+            transform: scale(1.2);
+          }
+        }
+      }
+    }
+    .RatingAndPrice {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
     .ContentContainer {
       width: 90%;
       margin: 0 auto;
@@ -35,13 +55,6 @@
           font-size: 1.2rem;
           font-weight: bold;
         }
-        .Edit {
-          height: 25px;
-          cursor: pointer;
-          &:hover {
-            transform: scale(1.2);
-          }
-        }
       }
       .SmallFont {
         font-size: 0.9rem;
@@ -49,11 +62,6 @@
       .BoldFont {
         font-weight: bold;
         font-size: 1rem;
-      }
-      .RatingAndPrice {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
       }
     }
     &::-webkit-scrollbar {
