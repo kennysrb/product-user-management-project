@@ -14,7 +14,11 @@ import MenuIcon from "../assets/images/icons/hamburger-icon.png";
 import UserIcon from "../assets/images/icons/user-icon.png";
 import { useNavigate } from "react-router-dom";
 import styles from "./Header.module.scss";
-export const Header = () => {
+import { observer } from "mobx-react-lite";
+import { googleLogout, useGoogleLogin } from "@react-oauth/google";
+
+export const Header = observer((props: any) => {
+  const { img } = props;
   const pages = ["Products", "Users", "Carts"];
   const settings = ["Logout"];
   const navigate = useNavigate();
@@ -34,6 +38,9 @@ export const Header = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+    const logOut = () => {
+      googleLogout();
+    };
   };
   return (
     <AppBar position="static" className={styles.Navbar}>
@@ -135,7 +142,7 @@ export const Header = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="N" src={UserIcon} />
+                <Avatar alt="N" src={img} />
               </IconButton>
             </Tooltip>
             <Menu
@@ -165,4 +172,4 @@ export const Header = () => {
       </Container>
     </AppBar>
   );
-};
+});

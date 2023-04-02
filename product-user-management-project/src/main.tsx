@@ -8,13 +8,19 @@ import { Products } from "./pages/Products";
 import { Carts } from "./pages/Carts";
 import { Users } from "./pages/Users";
 import { initializeStore, Provider } from "./store";
+import { Login } from "./pages/Login";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+
+const clientId =
+  "683431762697-kjfb3v924pcmamqtuhkek2ag1npp6t2v.apps.googleusercontent.com";
 
 const store = initializeStore();
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "",
     element: <App />,
   },
+
   {
     path: "/Users",
     element: <Users />,
@@ -30,9 +36,11 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
-    <Provider value={store}>
-      <RouterProvider router={router}></RouterProvider>
-    </Provider>
-  </React.StrictMode>
+  <GoogleOAuthProvider clientId={clientId}>
+    <React.StrictMode>
+      <Provider value={store}>
+        <RouterProvider router={router}></RouterProvider>
+      </Provider>
+    </React.StrictMode>
+  </GoogleOAuthProvider>
 );
