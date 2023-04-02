@@ -66,5 +66,8 @@
       }
     }
     @include scrollBar;
+    .Button {
+      @include button;
+    }
   }
 }

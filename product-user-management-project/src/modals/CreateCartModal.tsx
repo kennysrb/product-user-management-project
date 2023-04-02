@@ -103,8 +103,10 @@ export const CreateCartModal = observer((props: any) => {
                 label="User ID values 1-100"
                 onChange={handleChange}
               />
-              <FormLabel component="legend">Select products:</FormLabel>
-              <FormGroup>
+              <FormLabel style={{ marginLeft: "1rem" }} component="legend">
+                Select products:
+              </FormLabel>
+              <FormGroup style={{ marginLeft: "1rem" }}>
                 {products.map((product: any) => {
                   return (
                     <FormControlLabel
@@ -116,7 +118,11 @@ export const CreateCartModal = observer((props: any) => {
                   );
                 })}
               </FormGroup>
-              <Button type="submit" variant="contained">
+              <Button
+                type="submit"
+                variant="contained"
+                className={styles.Button}
+              >
                 Submit
               </Button>
             </Box>

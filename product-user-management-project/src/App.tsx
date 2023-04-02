@@ -38,7 +38,7 @@ function App() {
           setProfile(res.data);
           setTimeout(() => {
             navigate("/Products");
-          }, 2000);
+          }, 1200);
         })
         .catch((err) => console.log(err));
     }

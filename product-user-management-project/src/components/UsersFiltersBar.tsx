@@ -127,7 +127,7 @@ export default function UsersFilterBar() {
               </MenuItem>
             ))}
           </Select>
-          <Search>
+          <Search style={{ display: "flex" }}>
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}

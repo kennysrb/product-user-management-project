@@ -39,6 +39,25 @@
           }
         }
       }
+      .Form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .UpperGroupContainer {
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+          .VerticalGroup {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+        .InputField {
+          width: 15rem;
+        }
+      }
     }
     .RatingAndPrice {
       width: 100%;
@@ -66,5 +85,8 @@
       }
     }
     @include scrollBar;
+    .Button {
+      @include button;
+    }
   }
 }

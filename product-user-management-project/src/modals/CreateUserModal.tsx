@@ -125,50 +125,75 @@ export const CreateUserModal = observer((props: any) => {
               noValidate
               autoComplete="off"
               onSubmit={handleSubmit}
+              className={styles.Form}
             >
-              <TextField id="firstName" label="Name" onChange={handleChange} />
-              <TextField
-                id="lastName"
-                label="Last name"
-                onChange={handleChange}
-              />
-              <Select
-                displayEmpty
-                value={userGender}
-                onChange={handleSelectChange}
-                input={<OutlinedInput />}
-                className={styles.Select}
-                renderValue={(selected) => {
-                  if (selected.length === 0) {
-                    return <em>Gender</em>;
-                  } else {
-                    return <em>{selected}</em>;
-                  }
-                }}
-                MenuProps={MenuProps}
-                inputProps={{ "aria-label": "Without label" }}
-              >
-                <MenuItem disabled value="">
-                  <em>Gender</em>
-                </MenuItem>
-                {genders.map((gender) => (
-                  <MenuItem
-                    key={gender}
-                    value={gender}
-                    style={getStyles(gender, gender, theme)}
+              <div className={styles.UpperGroupContainer}>
+                <div className={styles.VerticalGroup}>
+                  <TextField
+                    className={styles.InputField}
+                    id="firstName"
+                    label="Name"
+                    onChange={handleChange}
+                  />
+                  <TextField
+                    className={styles.InputField}
+                    id="lastName"
+                    label="Last name"
+                    onChange={handleChange}
+                  />
+
+                  <TextField
+                    className={styles.InputField}
+                    id="age"
+                    label="Age"
+                    type="number"
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className={styles.VerticalGroup}>
+                  <TextField
+                    className={styles.InputField}
+                    id="email"
+                    label="Email"
+                    onChange={handleChange}
+                  />
+                  <TextField
+                    className={styles.InputField}
+                    id="phone"
+                    label="Phone"
+                    onChange={handleChange}
+                  />
+                  <Select
+                    displayEmpty
+                    value={userGender}
+                    onChange={handleSelectChange}
+                    input={<OutlinedInput />}
+                    className={styles.InputField}
+                    renderValue={(selected) => {
+                      if (selected.length === 0) {
+                        return <em>Gender</em>;
+                      } else {
+                        return <em>{selected}</em>;
+                      }
+                    }}
+                    MenuProps={MenuProps}
+                    inputProps={{ "aria-label": "Without label" }}
                   >
-                    {gender}
-                  </MenuItem>
-                ))}
-              </Select>
-              <TextField
-                id="age"
-                label="Age"
-                type="number"
-                onChange={handleChange}
-              />
-              <TextField id="email" label="Email" onChange={handleChange} />
-              <TextField id="phone" label="Phone" onChange={handleChange} />
+                    <MenuItem disabled value="">
+                      <em>Gender</em>
+                    </MenuItem>
+                    {genders.map((gender) => (
+                      <MenuItem
+                        key={gender}
+                        value={gender}
+                        style={getStyles(gender, gender, theme)}
+                      >
+                        {gender}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </div>
+              </div>
               <div className={styles.RatingAndPrice}>
                 <TextField
                   id="address.street"
@@ -191,7 +216,11 @@ export const CreateUserModal = observer((props: any) => {
                   onChange={handleChange}
                 />
               </div>
-              <Button type="submit" variant="contained">
+              <Button
+                type="submit"
+                variant="contained"
+                className={styles.Button}
+              >
                 Submit
               </Button>
             </Box>

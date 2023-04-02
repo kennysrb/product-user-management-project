@@ -89,15 +89,7 @@
       }
     }
     .Button {
-      margin-top: 1rem;
-      background-color: #415a77;
-      color: #e0e1dd;
-      width: 5rem;
-      border-radius: 10px;
-      &:hover {
-        color: #e0e1dd;
-        opacity: 0.8;
-      }
+      @include button;
     }
     @include scrollBar;
   }
