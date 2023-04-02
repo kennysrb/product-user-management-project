@@ -15,6 +15,7 @@ import { UserInfoModal } from "../modals/UserInfoModal";
 import UsersFilterBar from "../components/UsersFiltersBar";
 import CartIcon from "../assets/images/icons/cart-icon.png";
 import { UserCartModal } from "../modals/UserCartModal";
+import { Tooltip } from "@mui/material";
 export const Users = observer(() => {
   const {
     userStore: { getUsers, users, getSingleUser, getUserCart },
@@ -165,15 +166,17 @@ export const Users = observer(() => {
                               maxWidth: columns["cart"]?.maxWidth,
                             }}
                           >
-                            <img
-                              className={styles.CartIcon}
-                              src={CartIcon}
-                              alt="user cart"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                openUserCart(e, row.id);
-                              }}
-                            />
+                            <Tooltip title="Open user cart">
+                              <img
+                                className={styles.CartIcon}
+                                src={CartIcon}
+                                alt="user cart"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  openUserCart(e, row.id);
+                                }}
+                              />
+                            </Tooltip>
                           </TableCell>
                         </TableRow>
                       );
