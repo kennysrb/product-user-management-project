@@ -6,6 +6,13 @@ import InputBase from "@mui/material/InputBase";
 import styles from "./ProductsFiltersBar.module.scss";
 import { useStore } from "../store";
 import { CreateUserModal } from "../modals/CreateUserModal";
+import {
+  MenuItem,
+  OutlinedInput,
+  Select,
+  SelectChangeEvent,
+} from "@mui/material";
+import { Theme, useTheme } from "@mui/material/styles";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -47,7 +54,7 @@ const MenuProps = {
 
 export default function UsersFilterBar() {
   const {
-    userStore: { searchUsers },
+    userStore: { searchUsers, getFilteredUsers },
   } = useStore();
   const [inputValue, setInputValue] = React.useState("");
   const [isOpen, setOpen] = React.useState(false);
@@ -67,6 +74,22 @@ export default function UsersFilterBar() {
   const opeCreateUserModal = () => {
     setOpen(true);
   };
+  const [selectedGender, setSelectedGender] = React.useState("");
+  const handleChange = (event: SelectChangeEvent<typeof selectedGender>) => {
+    setSelectedGender(event.target.value);
+    getFilteredUsers(event.target.value);
+  };
+  const genderOptions = ["male", "female", "other"];
+
+  function getStyles(name: string, personName: string, theme: Theme) {
+    return {
+      fontWeight:
+        personName.indexOf(name) === -1
+          ? theme.typography.fontWeightRegular
+          : theme.typography.fontWeightMedium,
+    };
+  }
+  const theme = useTheme();
   return (
     <>
       <Box className={styles.FiltersBarWrapper} sx={{ flexGrow: 1 }}>
@@ -74,6 +97,36 @@ export default function UsersFilterBar() {
           <span className={styles.Link} onClick={opeCreateUserModal}>
             Create new user
           </span>
+          <Select
+            displayEmpty
+            value={selectedGender}
+            onChange={handleChange}
+            input={<OutlinedInput />}
+            className={styles.Select}
+            renderValue={(selected) => {
+              if (selected.length === 0) {
+                return <em>Gender</em>;
+              } else {
+                return <em>{selected}</em>;
+              }
+            }}
+            MenuProps={MenuProps}
+            style={{ minWidth: 150 }}
+            inputProps={{ "aria-label": "Without label" }}
+          >
+            <MenuItem disabled value="">
+              <em>Gender</em>
+            </MenuItem>
+            {genderOptions.map((name) => (
+              <MenuItem
+                key={name}
+                value={name}
+                style={getStyles(name, selectedGender, theme)}
+              >
+                {name}
+              </MenuItem>
+            ))}
+          </Select>
           <Search>
             <StyledInputBase
               placeholder="Search…"
