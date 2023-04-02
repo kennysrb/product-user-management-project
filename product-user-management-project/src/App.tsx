@@ -3,15 +3,23 @@ import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { observer } from "mobx-react-lite";
 import { Header } from "./components/Header";
+import { useStore } from "./store";
+import { Button } from "@mui/material";
+import styles from "./App.module.scss";
+import { useNavigate } from "react-router";
 
 function App() {
   const [user, setUser] = useState({});
-  const [profile, setProfile] = useState(null);
+
+  const {
+    profileStore: { profile, setProfile },
+  } = useStore();
 
   const login = useGoogleLogin({
     onSuccess: (codeResponse) => setUser(codeResponse),
     onError: (error) => console.log("Login Failed:", error),
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (user?.access_token) {
@@ -26,37 +34,35 @@ function App() {
           }
         )
         .then((res) => {
+          console.log(res.data);
           setProfile(res.data);
+          setTimeout(() => {
+            navigate("/Products");
+          }, 2000);
         })
         .catch((err) => console.log(err));
     }
   }, [user]);
 
-  // log out function to log the user out of google and set the profile array to null
-  const logOut = () => {
-    googleLogout();
-    setProfile(null);
-  };
-
   return (
     <>
-      <Header img={profile?.picture} />
-      <h2>React Google Login</h2>
-      <br />
-      <br />
-      {profile ? (
-        <div>
-          <img src={profile.picture} alt="user image" />
-          <h3>User Logged in</h3>
-          <p>Name: {profile?.name}</p>
-          <p>Email Address: {profile.email}</p>
-          <br />
-          <br />
-          <button onClick={logOut}>Log out</button>
-        </div>
-      ) : (
-        <button onClick={() => login()}>Sign in with Google 🚀 </button>
-      )}
+      <Header />
+      <div className={styles.WelcomePageContent}>
+        {profile ? (
+          <h3>
+            {profile.given_name}, welcome to Product User Management Project!
+          </h3>
+        ) : (
+          <Button className={styles.LoginLogout} onClick={() => login()}>
+            Sign in with Google
+            <img
+              src="https://img.icons8.com/color/48/000000/google-logo.png"
+              alt="google"
+              className={styles.GoogleIcon}
+            />
+          </Button>
+        )}
+      </div>
     </>
   );
 }

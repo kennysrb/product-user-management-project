@@ -4,11 +4,13 @@ import { createContext, useContext } from "react";
 import { UserStore } from "./models/User";
 import { CartStore } from "./models/Cart";
 import { ProductStore } from "./models/Product";
+import { ProfileStore } from "./models/ProfileStore";
 
 export const RootStore = types.model({
   productStore: ProductStore,
   userStore: UserStore,
   cartStore: CartStore,
+  profileStore: ProfileStore,
 });
 
 let _store: any = null;
@@ -18,6 +20,7 @@ export function initializeStore() {
     productStore: { products: [] },
     userStore: { users: [] },
     cartStore: { carts: [] },
+    profileStore: { profile: null },
   });
   return _store;
 }

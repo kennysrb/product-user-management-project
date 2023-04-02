@@ -1,6 +1,6 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Sheet from "react-modal-sheet";
-import { observer, useObserver } from "mobx-react-lite";
+import { observer } from "mobx-react-lite";
 import styles from "./EditProductModal.module.scss";
 import CloseIcon from "../assets/images/icons/close-icon.png";
 import EditIcon from "../assets/images/icons/edit-icon.png";
@@ -8,7 +8,7 @@ import ConfirmIcon from "../assets/images/icons/checkmark-icon.png";
 import DeleteIcon from "../assets/images/icons/delete-icon.png";
 import { useStore } from "../store";
 import ConfirmationDialog from "./ConfirmationDialog";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, TextField } from "@mui/material";
 
 export const EditProductModal = observer((props: any) => {
   const {
