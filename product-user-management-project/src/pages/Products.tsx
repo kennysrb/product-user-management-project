@@ -4,7 +4,7 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "../store";
 import SingleProduct from "../components/SingleProduct";
 import styles from "./Products.module.scss";
-import FiltersBar from "../components/FiltersBar";
+import FiltersBar from "../components/ProductsFiltersBar";
 export const Products = observer(() => {
   const {
     productStore: { getProducts, products, getProductCategories },

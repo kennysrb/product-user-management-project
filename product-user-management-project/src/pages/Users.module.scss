@@ -12,6 +12,12 @@
         background-color: #e0e1dd;
       }
     }
+    .TableRow {
+      &:hover {
+        background-color: #e0e1dd;
+        cursor: pointer;
+      }
+    }
     .AvatarImg {
       height: 30px;
     }

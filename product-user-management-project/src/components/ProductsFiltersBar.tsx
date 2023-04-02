@@ -3,7 +3,7 @@ import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import InputBase from "@mui/material/InputBase";
-import styles from "./FiltersBar.module.scss";
+import styles from "./ProductsFiltersBar.module.scss";
 import { useStore } from "../store";
 import { MenuItem } from "@mui/material";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -49,7 +49,7 @@ const MenuProps = {
   },
 };
 
-export default function FiltersBar() {
+export default function ProductsFiltersBar() {
   const {
     productStore: { searchProducts, productCategories, getProductByCategory },
   } = useStore();

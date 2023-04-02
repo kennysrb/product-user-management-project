@@ -12,6 +12,8 @@ import TableRow from "@mui/material/TableRow";
 import { useStore } from "../store";
 import { observer } from "mobx-react-lite";
 import { UserInfoModal } from "../modals/UserInfoModal";
+import ProductsFiltersBar from "../components/ProductsFiltersBar";
+import UsersFilterBar from "../components/UsersFiltersBar";
 
 export const Users = observer(() => {
   const {
@@ -99,7 +101,7 @@ export const Users = observer(() => {
     <>
       <Header />
       <div className={styles.Container}>
-        {/* <FiltersBar /> */}
+        <UsersFilterBar />
         <div>
           <Paper sx={{ width: "100%" }}>
             <TableContainer
@@ -135,6 +137,7 @@ export const Users = observer(() => {
                           role="checkbox"
                           tabIndex={-1}
                           key={row.id}
+                          className={styles.TableRow}
                           onClick={() => selectUser(row.id)}
                         >
                           {Object.keys(row)
