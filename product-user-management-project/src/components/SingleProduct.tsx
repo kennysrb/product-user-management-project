@@ -6,7 +6,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import styles from "./SingleProduct.module.scss";
-import { EditProductModal } from "../UI/EditProductModal";
+import { EditProductModal } from "../modals/EditProductModal";
 import { useStore } from "../store";
 
 export default function SingleProduct(props: any) {

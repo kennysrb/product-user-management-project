@@ -7,7 +7,7 @@ import EditIcon from "../assets/images/icons/edit-icon.png";
 import ConfirmIcon from "../assets/images/icons/checkmark-icon.png";
 import DeleteIcon from "../assets/images/icons/delete-icon.png";
 import { useStore } from "../store";
-import ConfirmationDialog from "./ConfirmationDialog";
+import ConfirmationDialog from "../UI/ConfirmationDialog";
 import { Box, TextField } from "@mui/material";
 
 export const EditProductModal = observer((props: any) => {
