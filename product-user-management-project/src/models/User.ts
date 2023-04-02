@@ -1,13 +1,5 @@
 import axios from "axios";
 import { cast, types } from "mobx-state-tree";
-
-interface Address {
-  address: string;
-  state: string;
-  city: string;
-  postalcode: string;
-}
-
 interface User {
   id: number;
   image: string;
@@ -95,11 +87,22 @@ export const UserStore = types
           .then((res) => this.setUsers(res.data.users))
           .catch((error) => console.error("Error:", error));
       },
-
       createNewUser(user: {}) {
         axios
           .post("https://dummyjson.com/users/add", user)
           .then((res) => console.log(res.data))
+          .catch((error) => console.error("Error:", error));
+      },
+      getUserCart(id: number) {
+        axios
+          .get(`https://dummyjson.com/users/${id}/carts`)
+          .then((res) => console.log(res.data))
+          .catch((error) => console.error("Error:", error));
+      },
+      getFilteredUsers(filter: string) {
+        axios
+          .get(`https://dummyjson.com/users/filter?key=gender&value=${filter}`)
+          .then((res) => this.setUsers(res.data.users))
           .catch((error) => console.error("Error:", error));
       },
     };

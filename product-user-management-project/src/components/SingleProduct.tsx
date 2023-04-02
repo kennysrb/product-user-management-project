@@ -24,13 +24,15 @@ export default function SingleProduct(props: any) {
   return (
     <>
       <Card sx={{ maxWidth: 345 }} className={styles.Card}>
-        <CardMedia sx={{ height: 140 }} image={images[0]} title={title} />
+        {images && (
+          <CardMedia sx={{ height: 140 }} image={images[0]} title={title} />
+        )}
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {title}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {description}
+            {description && description}
           </Typography>
         </CardContent>
         <CardActions>

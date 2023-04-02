@@ -10,6 +10,13 @@
       width: 100%;
       .TableHeadCell {
         background-color: #e0e1dd;
+        .AddCart {
+          &:hover {
+            cursor: pointer;
+            color: #778da9;
+            transform: scale(1.1);
+          }
+        }
       }
     }
     .TableRow {
@@ -20,6 +27,13 @@
     }
     .AvatarImg {
       height: 30px;
+    }
+    .CartIcon {
+      height: 20px;
+      &:hover {
+        cursor: pointer;
+        transform: scale(1.4);
+      }
     }
   }
 }

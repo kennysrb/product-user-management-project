@@ -63,7 +63,6 @@ export const CreateUserModal = observer((props: any) => {
   };
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    console.log(formData);
     createNewUser(formData);
     setOpen(false);
   };

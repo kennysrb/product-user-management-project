@@ -12,6 +12,7 @@
     }
     .Link {
       @include link;
+      height: 4rem;
     }
   }
 }

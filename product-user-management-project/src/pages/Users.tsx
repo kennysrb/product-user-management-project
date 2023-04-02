@@ -12,17 +12,19 @@ import TableRow from "@mui/material/TableRow";
 import { useStore } from "../store";
 import { observer } from "mobx-react-lite";
 import { UserInfoModal } from "../modals/UserInfoModal";
-import ProductsFiltersBar from "../components/ProductsFiltersBar";
 import UsersFilterBar from "../components/UsersFiltersBar";
-
+import CartIcon from "../assets/images/icons/cart-icon.png";
+import { UserCartModal } from "../modals/UserCartModal";
 export const Users = observer(() => {
   const {
-    userStore: { getUsers, users, getSingleUser, singleUser },
+    userStore: { getUsers, users, getSingleUser, getUserCart },
+    cartStore: { getSingleCart },
   } = useStore();
-  const [isOpen, setOpen] = useState(false);
   useEffect(() => {
     getUsers();
   }, []);
+  const [isOpen, setOpen] = useState(false);
+  const [isCartModalOpen, setCartModalOpen] = useState(false);
   interface Column {
     id:
       | "image"
@@ -31,8 +33,8 @@ export const Users = observer(() => {
       | "age"
       | "gender"
       | "email"
-      | "phone";
-    // | "address";
+      | "phone"
+      | "cart";
     label: string;
     minWidth?: number;
     maxWidth?: number;
@@ -42,42 +44,34 @@ export const Users = observer(() => {
 
   const columns: Column[] = [
     { id: "image", label: "", maxWidth: 20, align: "right" },
-    { id: "firstName", label: "Name", minWidth: 100, align: "right" },
+    { id: "firstName", label: "Name", maxWidth: 20, align: "right" },
     { id: "lastName", label: "Last name", minWidth: 100, align: "right" },
     {
       id: "age",
       label: "Age",
       maxWidth: 20,
       align: "right",
-      // format: (value: number) => value.toLocaleString("en-US"),
     },
-    { id: "gender", label: "Gender", minWidth: 100, align: "right" },
+    { id: "gender", label: "Gender", maxWidth: 20, align: "right" },
     {
       id: "email",
       label: "Email",
       minWidth: 100,
       align: "right",
-      // format: (value: number) => value.toLocaleString("en-US"),
     },
     {
       id: "phone",
       label: "Phone",
       minWidth: 100,
       align: "right",
-      // format: (value: number) => value.toFixed(2),
+    },
+    {
+      id: "cart",
+      label: "Cart",
+      maxWidth: 20,
+      align: "right",
     },
   ];
-
-  interface User {
-    image: string;
-    firstName: string;
-    lastName: string;
-    age: number;
-    gender: string;
-    email: string;
-    phone: string;
-    // address: ;
-  }
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -96,7 +90,10 @@ export const Users = observer(() => {
     getSingleUser(id);
     setOpen(true);
   };
-
+  const openUserCart = (e: any, id: any) => {
+    setCartModalOpen(true);
+    getSingleCart(id);
+  };
   return (
     <>
       <Header />
@@ -162,6 +159,22 @@ export const Users = observer(() => {
                                 )}
                               </TableCell>
                             ))}
+                          <TableCell
+                            align="right"
+                            style={{
+                              maxWidth: columns["cart"]?.maxWidth,
+                            }}
+                          >
+                            <img
+                              className={styles.CartIcon}
+                              src={CartIcon}
+                              alt="user cart"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                openUserCart(e, row.id);
+                              }}
+                            />
+                          </TableCell>
                         </TableRow>
                       );
                     })}
@@ -181,6 +194,7 @@ export const Users = observer(() => {
         </div>
       </div>
       <UserInfoModal open={isOpen} setOpen={setOpen} />
+      <UserCartModal open={isCartModalOpen} setOpen={setCartModalOpen} />
     </>
   );
 });

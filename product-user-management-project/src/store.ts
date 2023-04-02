@@ -1,7 +1,8 @@
 import axios from "axios";
 import { Instance, cast, flow, types } from "mobx-state-tree";
 import { createContext, useContext } from "react";
-import {UserStore} from "./models/User";
+import { UserStore } from "./models/User";
+import { CartStore } from "./models/Cart";
 
 interface Product {
   id: number;
@@ -18,16 +19,16 @@ interface Product {
 }
 export const ProductModel = types.model("ProductModel", {
   id: types.identifierNumber,
-  title: types.string,
-  description: types.string,
-  price: types.number,
-  discountPercentage: types.number,
-  rating: types.number,
-  stock: types.number,
-  brand: types.string,
-  category: types.string,
-  thumbnail: types.string,
-  images: types.array(types.string),
+  title: types.maybeNull(types.string),
+  description: types.maybeNull(types.string),
+  price: types.maybeNull(types.number),
+  discountPercentage: types.maybeNull(types.number),
+  rating: types.maybeNull(types.number),
+  stock: types.maybeNull(types.number),
+  brand: types.maybeNull(types.string),
+  category: types.maybeNull(types.string),
+  thumbnail: types.maybeNull(types.string),
+  images: types.maybeNull(types.array(types.string)),
 });
 const ProductStore = types
   .model({
@@ -119,12 +120,21 @@ const ProductStore = types
           .then((res) => console.log(res.data))
           .catch((error) => console.error("Error:", error));
       },
+      limitProducts(limit: number) {
+        axios
+          .get(
+            `https://dummyjson.com/products?limit=${limit}&select=title,price`
+          )
+          .then((res) => this.setProducts(res.data.products))
+          .catch((error) => console.error("Error:", error));
+      },
     };
   });
 
 export const RootStore = types.model({
   productStore: ProductStore,
   userStore: UserStore,
+  cartStore: CartStore,
 });
 
 let _store: any = null;
@@ -133,6 +143,7 @@ export function initializeStore() {
   _store = RootStore.create({
     productStore: { products: [] },
     userStore: { users: [] },
+    cartStore: { carts: [] },
   });
   return _store;
 }

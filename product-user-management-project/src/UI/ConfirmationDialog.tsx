@@ -12,6 +12,7 @@ export default function ConfirmationDialog(props: any) {
   const {
     productStore: { deleteProduct },
     userStore: { deleteUser },
+    cartStore: { deleteCart },
   } = useStore();
   const handleClose = () => {
     setDialogOpen(false);
@@ -24,9 +25,9 @@ export default function ConfirmationDialog(props: any) {
       case "user":
         await deleteUser(id);
         break;
-      // case "cart":
-      //   deleteCart(id);
-      //   break;
+      case "cart":
+        deleteCart(id);
+        break;
     }
     setDialogOpen(false);
     setOpen(false);
