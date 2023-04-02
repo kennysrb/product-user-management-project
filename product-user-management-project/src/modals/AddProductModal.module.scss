@@ -22,6 +22,28 @@
     background-color: transparent;
   }
   .Content {
+    .ModalTitle {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-top: 0;
+      margin-bottom: 5rem;
+
+      text-align: center;
+    }
+    .Form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .UpperGroupContainer {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        .ColumnGroup {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    }
     .Image {
       width: 100%;
     }
@@ -40,6 +62,7 @@
         }
       }
     }
+
     .RatingAndPrice {
       width: 100%;
       display: flex;
@@ -63,6 +86,17 @@
       .BoldFont {
         font-weight: bold;
         font-size: 1rem;
+      }
+    }
+    .Button {
+      margin-top: 1rem;
+      background-color: #415a77;
+      color: #e0e1dd;
+      width: 5rem;
+      border-radius: 10px;
+      &:hover {
+        color: #e0e1dd;
+        opacity: 0.8;
       }
     }
     @include scrollBar;

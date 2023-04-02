@@ -60,6 +60,7 @@ export const AddProductModal = observer((props: any) => {
         </Sheet.Header>
         <Sheet.Content className={styles.Content}>
           <div className={styles.BottomContent}>
+            <p className={styles.ModalTitle}>Add new product</p>
             <Box
               component="form"
               sx={{
@@ -68,16 +69,21 @@ export const AddProductModal = observer((props: any) => {
               noValidate
               autoComplete="off"
               onSubmit={handleSubmit}
+              className={styles.Form}
             >
-              <TextField id="title" label="Title" onChange={handleChange} />
-              <TextField
-                id="description"
-                label="Description"
-                multiline
-                rows={4}
-                onChange={handleChange}
-              />
-              <TextField id="brand" label="Brand" onChange={handleChange} />
+              <div className={styles.UpperGroupContainer}>
+                <div className={styles.ColumnGroup}>
+                  <TextField id="title" label="Title" onChange={handleChange} />
+                  <TextField id="brand" label="Brand" onChange={handleChange} />
+                </div>
+                <TextField
+                  id="description"
+                  label="Description"
+                  multiline
+                  rows={4}
+                  onChange={handleChange}
+                />
+              </div>
               <div className={styles.RatingAndPrice}>
                 <TextField
                   id="rating"
@@ -104,7 +110,11 @@ export const AddProductModal = observer((props: any) => {
                   onChange={handleChange}
                 />
               </div>
-              <Button type="submit" variant="contained">
+              <Button
+                className={styles.Button}
+                type="submit"
+                variant="contained"
+              >
                 Submit
               </Button>
             </Box>
